@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #runBtn {
+      position: absolute;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #popup {
+      display: none;
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #af4c91;
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 20px;
+    }
+    #signature {
+  position: fixed;
+  bottom: 10px;
+  right: 15px;
+  font-size: 14px;
+  color: rgb(243, 66, 190);
+  opacity: 0.7;
+}
+  </style>
+</head>
+<body>
+
+<button id="runBtn">Graduate? 😆</button>
+
+<div id="popup">🎉 You did it! 🎉</div>
+
+<div id="signature">Created by Ramotlou SE</div>
+
+
+<!-- Sound -->
+<audio id="winSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
+<audio id="winSound">
+  <source src="https://www.soundjay.com/buttons/sounds/button-3.mp3" type="audio/mpeg">
+</audio>
+<!-- Confetti library -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+  const btn = document.getElementById("runBtn");
+  const popup = document.getElementById("popup");
+  const sound = document.getElementById("winSound");
+
+  // Run away effect
+  btn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    btn.style.left = x + "px";
+    btn.style.top = y + "px";
+  });
+
+  // Click = celebration
+  btn.addEventListener("click", () => {
+  popup.style.display = "block";
+  sound.play();
+
+  const duration = 60 * 1000; // 1 minute
+  const end = Date.now() + duration;
+
+  (function frame() {
+    confetti({
+      particleCount: 5,   // small amount each frame
+      spread: 70,
+      origin: { y: 0 }
+    });
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  })();
+});
+  
+</script>
+
+</body>
+</html>
